@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LMRR 1522 - Project Visuals & Slide Guide</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f0f4f8;
+    color: #1e293b;
+    min-height: 100vh;
+  }
+
+  .container { max-width: 1400px; margin: 0 auto; padding: 40px 30px; }
+
+  /* ---- HEADER ---- */
+  .page-header {
+    text-align: center; padding: 50px 20px 40px; margin-bottom: 20px;
+    position: relative;
+  }
+  .page-header::before {
+    content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 120px; height: 4px; border-radius: 2px;
+    background: linear-gradient(90deg, #6366f1, #3b82f6, #06b6d4);
+  }
+  h1 {
+    font-size: 36px; font-weight: 800; letter-spacing: -0.5px;
+    background: linear-gradient(135deg, #6366f1, #3b82f6, #06b6d4);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text; padding: 10px 0 6px; line-height: 1.2;
+  }
+  h2 { font-size: 16px; color: #64748b; font-weight: 400; letter-spacing: 0.3px; }
+
+  /* ---- SECTION TITLES ---- */
+  .section-title {
+    font-size: 20px; font-weight: 700; color: #fff; letter-spacing: 0.3px;
+    background: linear-gradient(135deg, #6366f1, #3b82f6);
+    padding: 14px 28px; border-radius: 12px; margin: 40px 0 20px; display: inline-block;
+    box-shadow: 0 4px 14px rgba(99,102,241,0.3);
+  }
+
+  /* ===================== WBS DIAGRAM ===================== */
+  .wbs-container {
+    background: #fff; border: 1px solid #e2e8f0;
+    border-radius: 16px; padding: 40px 20px; overflow-x: auto;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    transition: box-shadow 0.3s;
+  }
+  .wbs-container:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+
+  .wbs-tree { display: flex; flex-direction: column; align-items: center; min-width: 1200px; }
+
+  .wbs-node {
+    padding: 10px 18px; border-radius: 8px; text-align: center; font-size: 13px; font-weight: 600;
+    position: relative; white-space: nowrap; cursor: default;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .wbs-node:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+  }
+
+  .wbs-root {
+    background: linear-gradient(135deg, #6366f1, #3b82f6); color: #fff;
+    font-size: 16px; padding: 16px 36px; border-radius: 12px; margin-bottom: 10px;
+    box-shadow: 0 4px 16px rgba(99,102,241,0.3);
+  }
+
+  .wbs-phase {
+    background: linear-gradient(135deg, #7c3aed, #6366f1); color: #fff;
+    font-size: 14px; padding: 10px 20px;
+    box-shadow: 0 3px 12px rgba(124,58,237,0.25);
+  }
+
+  .wbs-sub {
+    background: #ede9fe; color: #5b21b6; border: 1px solid #c4b5fd;
+    font-weight: 500; font-size: 12px; padding: 7px 12px;
+  }
+
+  .wbs-task {
+    background: #f8fafc; color: #475569; border: 1px solid #e2e8f0;
+    font-weight: 400; font-size: 11px; padding: 5px 10px;
+  }
+
+  .wbs-milestone {
+    background: linear-gradient(135deg, #f59e0b, #f97316); color: #fff;
+    font-size: 11px; padding: 5px 10px; border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(245,158,11,0.25);
+  }
+
+  .wbs-connector { width: 2px; background: #cbd5e1; margin: 0 auto; }
+  .wbs-hline { height: 2px; background: #cbd5e1; }
+
+  .wbs-level { display: flex; justify-content: center; gap: 12px; margin-top: 8px; flex-wrap: wrap; }
+  .wbs-level-wide { display: flex; justify-content: center; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+
+  .wbs-phase-group {
+    display: flex; flex-direction: column; align-items: center;
+    border: 1px dashed #c4b5fd; border-radius: 12px;
+    padding: 12px 8px; min-width: 120px;
+    background: rgba(237,233,254,0.3);
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .wbs-phase-group:hover { border-color: #7c3aed; background: rgba(237,233,254,0.6); }
+  .wbs-phase-group .wbs-children { display: flex; flex-direction: column; align-items: center; gap: 5px; margin-top: 8px; }
+
+  .wbs-legend { display: flex; gap: 20px; justify-content: center; margin-top: 25px; flex-wrap: wrap; }
+  .wbs-legend-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #64748b; }
+  .wbs-legend-box { width: 16px; height: 16px; border-radius: 4px; }
+
+  /* ===================== ORG CHART ===================== */
+  .org-container {
+    background: #fff; border: 1px solid #e2e8f0;
+    border-radius: 16px; padding: 40px 20px; overflow-x: auto;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    transition: box-shadow 0.3s;
+  }
+  .org-container:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+
+  .org-chart { display: flex; flex-direction: column; align-items: center; min-width: 900px; }
+
+  .org-node {
+    padding: 12px 24px; border-radius: 12px; text-align: center; font-size: 14px; font-weight: 600;
+    position: relative; white-space: nowrap; cursor: default;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .org-node:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  }
+
+  .org-top {
+    background: linear-gradient(135deg, #6366f1, #3b82f6); color: #fff; font-size: 16px; padding: 16px 36px;
+    box-shadow: 0 4px 16px rgba(99,102,241,0.3);
+  }
+  .org-mid {
+    background: linear-gradient(135deg, #3b82f6, #06b6d4); color: #fff; font-size: 14px; padding: 12px 28px;
+    box-shadow: 0 4px 14px rgba(59,130,246,0.25);
+  }
+  .org-branch {
+    background: linear-gradient(135deg, #10b981, #14b8a6); color: #fff; font-size: 13px; padding: 10px 20px;
+    box-shadow: 0 3px 10px rgba(16,185,129,0.25);
+  }
+  .org-leaf {
+    background: linear-gradient(135deg, #f59e0b, #f97316); color: #fff; font-size: 12px; padding: 8px 16px;
+    box-shadow: 0 3px 10px rgba(245,158,11,0.2);
+  }
+
+  .org-vline { width: 2px; background: #cbd5e1; margin: 0 auto; }
+  .org-hline { height: 2px; background: #cbd5e1; }
+
+  .org-level { display: flex; justify-content: center; gap: 30px; margin-top: 8px; }
+  .org-sub-level { display: flex; justify-content: center; gap: 16px; margin-top: 8px; }
+
+  .org-branch-group { display: flex; flex-direction: column; align-items: center; }
+  .org-branch-group .org-children { display: flex; gap: 10px; margin-top: 8px; }
+
+  /* ===================== SLIDES SECTION ===================== */
+  .slide-design-section { margin-top: 20px; }
+
+  .slide-design {
+    background: #fff; border: 1px solid #e2e8f0;
+    border-radius: 16px; overflow: hidden; margin-bottom: 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .slide-design:hover {
+    box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
+  }
+
+  .slide-design-header {
+    padding: 22px 30px; color: #fff; display: flex; align-items: center; gap: 16px;
+    position: relative; overflow: hidden;
+  }
+  .slide-design-header::after {
+    content: ''; position: absolute; top: 0; right: 0; width: 200px; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08));
+    pointer-events: none;
+  }
+  .slide-design-header .sd-num {
+    font-size: 36px; font-weight: 800; opacity: 0.25; line-height: 1;
+  }
+  .slide-design-header .sd-title-group { flex: 1; }
+  .slide-design-header .sd-title { font-size: 22px; font-weight: 700; letter-spacing: -0.3px; }
+  .slide-design-header .sd-subtitle { font-size: 13px; opacity: 0.8; margin-top: 3px; font-weight: 400; }
+
+  .slide-design-body { padding: 24px 30px; }
+
+  .sd-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .sd-three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+
+  .sd-card {
+    background: #f8fafc; border: 1px solid #e2e8f0;
+    border-radius: 12px; padding: 18px 20px;
+    border-left: 4px solid #6366f1;
+    transition: all 0.25s;
+  }
+  .sd-card:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    border-color: #cbd5e1;
+  }
+  .sd-card.green { border-left-color: #10b981; }
+  .sd-card.orange { border-left-color: #f59e0b; }
+  .sd-card.purple { border-left-color: #a855f7; }
+  .sd-card.teal { border-left-color: #14b8a6; }
+  .sd-card.red { border-left-color: #ef4444; }
+
+  .sd-card-title {
+    font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
+  .sd-card-title.blue { color: #6366f1; }
+  .sd-card-title.green { color: #059669; }
+  .sd-card-title.orange { color: #d97706; }
+  .sd-card-title.purple { color: #7c3aed; }
+  .sd-card-title.teal { color: #0d9488; }
+  .sd-card-title.red { color: #dc2626; }
+
+  .sd-card ul { padding-left: 16px; margin: 0; }
+  .sd-card li { font-size: 13px; line-height: 1.9; color: #475569; }
+  .sd-card li strong { color: #1e293b; }
+  .sd-card p { font-size: 13px; line-height: 1.7; color: #475569; margin: 0; }
+
+  .sd-highlight {
+    background: linear-gradient(135deg, #ede9fe, #e0e7ff);
+    border: 1px solid #c7d2fe;
+    border-radius: 12px; padding: 18px 22px; margin-top: 16px;
+    transition: border-color 0.3s;
+  }
+  .sd-highlight:hover { border-color: #818cf8; }
+  .sd-highlight-title { font-size: 14px; font-weight: 700; color: #4f46e5; margin-bottom: 8px; }
+  .sd-highlight p { font-size: 13px; color: #64748b; line-height: 1.7; margin: 0; }
+  .sd-highlight ul { padding-left: 16px; margin: 0; }
+  .sd-highlight li { font-size: 13px; line-height: 1.9; color: #334155; }
+  .sd-highlight li strong { color: #1e293b; }
+
+  .sd-timeline { display: flex; flex-direction: column; gap: 8px; }
+  .sd-timeline-item { display: flex; align-items: center; gap: 12px; font-size: 13px; }
+  .sd-tl-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .sd-tl-bar { height: 8px; border-radius: 4px; flex-shrink: 0; }
+  .sd-tl-label { font-weight: 600; min-width: 140px; color: #1e293b; }
+  .sd-tl-desc { color: #64748b; }
+
+  .sd-icon-box {
+    width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center;
+    justify-content: center; font-size: 22px; flex-shrink: 0;
+  }
+
+  .sd-badge {
+    display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 11px;
+    font-weight: 600; margin-right: 4px;
+  }
+
+  .sd-milestone-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+  .sd-milestone-table th {
+    background: linear-gradient(135deg, #6366f1, #3b82f6);
+    color: #fff; padding: 10px 14px; text-align: left;
+    font-size: 11px; text-transform: uppercase; letter-spacing: 1px;
+  }
+  .sd-milestone-table td {
+    padding: 10px 14px; border-bottom: 1px solid #f1f5f9;
+    font-size: 13px; color: #334155;
+  }
+  .sd-milestone-table tr:nth-child(even) { background: #f8fafc; }
+  .sd-milestone-table tr:hover { background: #eef2ff; }
+
+  .sd-resource-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .sd-resource-item {
+    display: flex; align-items: center; gap: 10px; padding: 10px 14px;
+    background: #f8fafc; border: 1px solid #e2e8f0;
+    border-radius: 10px; transition: all 0.2s;
+  }
+  .sd-resource-item:hover { background: #eef2ff; border-color: #c7d2fe; }
+  .sd-resource-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+  .sd-risk-row {
+    display: flex; align-items: center; gap: 12px; padding: 10px 0;
+    border-bottom: 1px solid #f1f5f9;
+  }
+  .sd-risk-row:last-child { border-bottom: none; }
+  .sd-risk-tag {
+    padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.5px; flex-shrink: 0;
+  }
+
+  /* ---- FOOTER ---- */
+  .page-footer {
+    text-align: center; padding: 40px 20px 30px; color: #94a3b8; font-size: 13px;
+    border-top: 1px solid #e2e8f0; margin-top: 40px;
+  }
+
+  /* ---- SCROLLBAR ---- */
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 4px; }
+  ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: #64748b; }
+
+  @media print {
+    body { background: #fff; }
+    .slide-design, .wbs-container, .org-container { border: 1px solid #ddd; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<div class="page-header">
+<h1>LMRR 1522 Perancangan Projek dan ProjectLibre</h1>
+<h2>Customer Acceptance Survey for XYZ Company</h2>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 1: WORK BREAKDOWN STRUCTURE DIAGRAM                   -->
+<!-- ============================================================ -->
+<div class="section-title">1. Work Breakdown Structure (WBS) Diagram</div>
+
+<div class="wbs-container">
+<div class="wbs-tree">
+
+<!-- ROOT -->
+<div class="wbs-node wbs-root">(0) Customer Acceptance Survey</div>
+<div class="wbs-connector" style="height:20px;"></div>
+
+<!-- LEVEL 1: 9 Phases -->
+<div class="wbs-level">
+
+  <!-- Phase 1 -->
+  <div class="wbs-phase-group">
+    <div class="wbs-node wbs-phase">1.0 Project Initiation</div>
+    <div class="wbs-connector" style="height:12px;"></div>
+    <div class="wbs-children">
+      <div class="wbs-node wbs-task">1.1 Identify objectives</div>
+      <div class="wbs-node wbs-task">1.2 Identify stakeholders</div>
+      <div class="wbs-node wbs-task">1.3 Develop charter</div>
+      <div class="wbs-node wbs-milestone">M1: Kickoff</div>
+    </div>
+  </div>
+
+  <!-- Phase 2 -->
+  <div class="wbs-phase-group">
+    <div class="wbs-node wbs-phase">2.0 Project Planning</div>
+    <div class="wbs-connector" style="height:12px;"></div>
+    <div class="wbs-children">
+      <div class="wbs-node wbs-task">2.1 Scope statement</div>
+      <div class="wbs-node wbs-task">2.2 Create WBS</div>
+      <div class="wbs-node wbs-task">2.3 Develop schedule</div>
+      <div class="wbs-node wbs-task">2.4 Plan budget</div>
+      <div class="wbs-node wbs-milestone">M2: Planning done</div>
+    </div>
+  </div>
+
+  <!-- Phase 3 -->
+  <div class="wbs-phase-group">
+    <div class="wbs-node wbs-phase">3.0 Survey Design</div>
+    <div class="wbs-connector" style="height:12px;"></div>
+    <div class="wbs-children">
+      <div class="wbs-node wbs-task">3.1 Lit. review</div>
+      <div class="wbs-node wbs-task">3.2 Research questions</div>
+      <div class="wbs-node wbs-task">3.3 Design structure</div>
+      <div class="wbs-node wbs-task">3.4 Develop questions</div>
+      <div class="wbs-node wbs-task">3.5 Validate (pilot)</div>
+      <div class="wbs-node wbs-task">3.6 Finalize instrument</div>
+      <div class="wbs-node wbs-milestone">M3: Questionnaire done</div>
+    </div>
+  </div>
+
+  <!-- Phase 4 -->
+  <div class="wbs-phase-group">
+    <div class="wbs-node wbs-phase">4.0 Location Prep</div>
+    <div class="wbs-connector" style="height:12px;"></div>
+    <div class="wbs-children">
+      <div class="wbs-node wbs-task">4.1 Identify locations</div>
+      <div class="wbs-node wbs-task">4.2 Contact malls</div>
+      <div class="wbs-node wbs-task">4.3 Permission letters</div>
+      <div class="wbs-node wbs-task">4.4 Submit requests</div>
+      <div class="wbs-node wbs-task">4.5 Obtain approvals</div>
+      <div class="wbs-node wbs-milestone">M4: Locations secured</div>
+    </div>
+  </div>
+
+  <!-- Phase 5 -->
+  <div class="wbs-phase-group">
+    <div class="wbs-node wbs-phase">5.0 Team Prep</div>
+    <div class="wbs-connector" style="height:12px;"></div>
+    <div class="wbs-children">
+      <div class="wbs-node wbs-task">5.1 Recruit team</div>
+      <div class="wbs-node wbs-task">5.2 Training materials</div>
+      <div class="wbs-node wbs-task">5.3 Conduct training</div>
+      <div class="wbs-node wbs-task">5.4 Prepare equipment</div>
+      <div class="wbs-node wbs-milestone">M5: Team ready</div>
+    </div>
+  </div>
+
+  <!-- Phase 6 -->
+  <div class="wbs-phase-group">
+    <div class="wbs-node wbs-phase">6.0 Field Survey</div>
+    <div class="wbs-connector" style="height:12px;"></div>
+    <div class="wbs-children">
+      <div class="wbs-node wbs-task">6.1 Jaya Jusco</div>
+      <div class="wbs-node wbs-task">6.2 AEON Mall</div>
+      <div class="wbs-node wbs-task">6.3 Bangsar SC</div>
+      <div class="wbs-node wbs-task">6.4 Pavilion KL</div>
+      <div class="wbs-node wbs-task">6.5 Suria KLCC</div>
+      <div class="wbs-node wbs-task">6.6 Quality check</div>
+      <div class="wbs-node wbs-task">6.7 Compile data</div>
+      <div class="wbs-node wbs-milestone">M6: Survey done</div>
+    </div>
+  </div>
+
+  <!-- Phase 7 -->
+  <div class="wbs-phase-group">
+    <div class="wbs-node wbs-phase">7.0 Data Analysis</div>
+    <div class="wbs-connector" style="height:12px;"></div>
+    <div class="wbs-children">
+      <div class="wbs-node wbs-task">7.1 Clean data</div>
+      <div class="wbs-node wbs-task">7.2 Descriptive stats</div>
+      <div class="wbs-node wbs-task">7.3 Cross-tabulation</div>
+      <div class="wbs-node wbs-task">7.4 Acceptance analysis</div>
+      <div class="wbs-node wbs-task">7.5 Location comparison</div>
+      <div class="wbs-node wbs-milestone">M7: Analysis done</div>
+    </div>
+  </div>
+
+  <!-- Phase 8 -->
+  <div class="wbs-phase-group">
+    <div class="wbs-node wbs-phase">8.0 Report Writing</div>
+    <div class="wbs-connector" style="height:12px;"></div>
+    <div class="wbs-children">
+      <div class="wbs-node wbs-task">8.1 Introduction</div>
+      <div class="wbs-node wbs-task">8.2 Methodology</div>
+      <div class="wbs-node wbs-task">8.3 Findings</div>
+      <div class="wbs-node wbs-task">8.4 Conclusions</div>
+      <div class="wbs-node wbs-task">8.5 Compile report</div>
+      <div class="wbs-node wbs-task">8.6 Review</div>
+      <div class="wbs-node wbs-milestone">M8: Report submitted</div>
+    </div>
+  </div>
+
+  <!-- Phase 9 -->
+  <div class="wbs-phase-group">
+    <div class="wbs-node wbs-phase">9.0 Presentation</div>
+    <div class="wbs-connector" style="height:12px;"></div>
+    <div class="wbs-children">
+      <div class="wbs-node wbs-task">9.1 Design slides</div>
+      <div class="wbs-node wbs-task">9.2 Prepare notes</div>
+      <div class="wbs-node wbs-task">9.3 Practice</div>
+      <div class="wbs-node wbs-task">9.4 Deliver presentation</div>
+      <div class="wbs-node wbs-task">9.5 Archive docs</div>
+      <div class="wbs-node wbs-task">9.6 Lessons learned</div>
+      <div class="wbs-node wbs-milestone">M9: Project closed</div>
+    </div>
+  </div>
+
+</div><!-- /wbs-level -->
+</div><!-- /wbs-tree -->
+
+<div class="wbs-legend">
+  <div class="wbs-legend-item"><div class="wbs-legend-box" style="background:#1a237e;"></div> Root</div>
+  <div class="wbs-legend-item"><div class="wbs-legend-box" style="background:#283593;"></div> Phase (Level 1)</div>
+  <div class="wbs-legend-item"><div class="wbs-legend-box" style="background:#e8eaf6; border:2px solid #7986cb;"></div> Sub-deliverable</div>
+  <div class="wbs-legend-item"><div class="wbs-legend-box" style="background:#f5f5f5; border:1px solid #ccc;"></div> Work Package</div>
+  <div class="wbs-legend-item"><div class="wbs-legend-box" style="background:#ff6f00;"></div> Milestone</div>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 2: PROJECT ORGANIZATION DIAGRAM                       -->
+<!-- ============================================================ -->
+<div class="section-title">2. Project Organization Structure</div>
+
+<div class="org-container">
+<div class="org-chart">
+
+<!-- Level 0: Top Management -->
+<div class="org-node org-top">XYZ Company Management<br><span style="font-size:12px;font-weight:400;">(Project Sponsor)</span></div>
+<div class="org-vline" style="height:20px;"></div>
+
+<!-- Level 1: Project Manager -->
+<div class="org-node org-mid">Project Manager</div>
+<div class="org-vline" style="height:20px;"></div>
+
+<!-- Horizontal line -->
+<div style="display:flex; justify-content:center; align-items:flex-start; width:100%;">
+  <div style="display:flex; flex-direction:column; align-items:center; width:100%; max-width:1000px;">
+    <div class="org-hline" style="width:90%;"></div>
+    <div style="display:flex; justify-content:space-between; width:90%; margin-top:0; padding:0 10px;">
+      
+      <!-- Branch 1: Survey Coordinator -->
+      <div class="org-branch-group">
+        <div class="org-vline" style="height:16px;"></div>
+        <div class="org-node org-branch">Survey Coordinator</div>
+        <div class="org-vline" style="height:14px;"></div>
+        <div class="org-hline" style="width:100%;"></div>
+        <div class="org-children">
+          <div style="display:flex; flex-direction:column; align-items:center;">
+            <div class="org-vline" style="height:10px;"></div>
+            <div class="org-node org-leaf">Team Member 1</div>
+          </div>
+          <div style="display:flex; flex-direction:column; align-items:center;">
+            <div class="org-vline" style="height:10px;"></div>
+            <div class="org-node org-leaf">Team Member 2</div>
+          </div>
+          <div style="display:flex; flex-direction:column; align-items:center;">
+            <div class="org-vline" style="height:10px;"></div>
+            <div class="org-node org-leaf">Team Member 3</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Branch 2: Data Analyst -->
+      <div class="org-branch-group">
+        <div class="org-vline" style="height:16px;"></div>
+        <div class="org-node org-branch">Data Analyst</div>
+      </div>
+
+      <!-- Branch 3: Report Writer -->
+      <div class="org-branch-group">
+        <div class="org-vline" style="height:16px;"></div>
+        <div class="org-node org-branch">Report Writer</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Legend -->
+<div style="display:flex; gap:24px; justify-content:center; margin-top:30px; flex-wrap:wrap;">
+  <div class="wbs-legend-item"><div class="wbs-legend-box" style="background:linear-gradient(135deg,#1a237e,#3949ab);"></div> Sponsor</div>
+  <div class="wbs-legend-item"><div class="wbs-legend-box" style="background:linear-gradient(135deg,#0d47a1,#1976d2);"></div> Project Manager</div>
+  <div class="wbs-legend-item"><div class="wbs-legend-box" style="background:linear-gradient(135deg,#00695c,#26a69a);"></div> Coordinators</div>
+  <div class="wbs-legend-item"><div class="wbs-legend-box" style="background:linear-gradient(135deg,#e65100,#fb8c00);"></div> Team Members</div>
+</div>
+
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 3: PRESENTATION                                       -->
+<!-- ============================================================ -->
+<div class="section-title" style="margin-top:50px;">3. Presentation</div>
+
+<div class="slide-design-section">
+
+<!-- ==================== SLIDE 1 ==================== -->
+<div class="slide-design">
+  <div class="slide-design-header" style="background:linear-gradient(135deg,#1a237e,#3949ab);">
+    <div class="sd-num">01</div>
+    <div class="sd-title-group">
+      <div class="sd-title">Customer Acceptance Survey</div>
+      <div class="sd-subtitle">XYZ Company's New Food/Drink Product</div>
+    </div>
+
+  </div>
+  <div class="slide-design-body">
+    <div class="sd-two-col">
+      <div>
+        <div class="sd-card">
+          <div class="sd-card-title blue">Title Information</div>
+          <ul>
+            <li><strong>Project Title:</strong> Customer Acceptance Survey for XYZ Company's New Food/Drink Product</li>
+            <li><strong>Course:</strong> LMRR 1522 Perancangan Projek dan ProjectLibre</li>
+            <li><strong>Lecturer:</strong> Assoc. Prof. Ir. Dr. Abang Annuar Ehsan</li>
+            <li><strong>Institute:</strong> Institute of Microengineering and Nanoelectronics (IMEN)</li>
+            <li><strong>University:</strong> Universiti Kebangsaan Malaysia</li>
+          </ul>
+        </div>
+        <div class="sd-highlight" style="margin-top:16px;">
+          <div class="sd-highlight-title">Student Details</div>
+          <ul>
+            <li><strong>Name:</strong> Joshua A/L Murugan</li>
+            <li><strong>Student ID:</strong> A212437</li>
+            <li><strong>Programme:</strong> Computer Science</li>
+            <li><strong>Semester:</strong> Semester 4, Year 2</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 2 ==================== -->
+<div class="slide-design">
+  <div class="slide-design-header" style="background:linear-gradient(135deg,#0d47a1,#1976d2);">
+    <div class="sd-num">02</div>
+    <div class="sd-title-group">
+      <div class="sd-title">Project Background</div>
+      <div class="sd-subtitle">Why This Project Matters</div>
+    </div>
+
+  </div>
+  <div class="slide-design-body">
+    <div class="sd-two-col">
+      <div>
+        <div class="sd-card">
+          <div class="sd-card-title blue">The Situation</div>
+          <ul>
+            <li>XYZ Company has developed a <strong>new food/drink product</strong></li>
+            <li>Product is currently in the <strong>testing phase</strong></li>
+            <li>Product will be <strong>launched soon</strong> in the market</li>
+          </ul>
+        </div>
+        <div class="sd-card orange" style="margin-top:12px;">
+          <div class="sd-card-title orange">The Problem</div>
+          <ul>
+            <li>Company needs to understand <strong>consumer acceptance</strong></li>
+            <li>Must compare with <strong>similar existing products</strong></li>
+            <li>Risk of poor launch without proper market data</li>
+          </ul>
+        </div>
+        <div class="sd-card green" style="margin-top:12px;">
+          <div class="sd-card-title green">The Solution</div>
+          <ul>
+            <li>Conduct <strong>customer acceptance survey</strong></li>
+            <li>Target <strong>5 strategic malls</strong> in Kuala Lumpur</li>
+            <li>Collect <strong>500+ responses</strong> over 4 months</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="sd-card purple" style="margin-bottom:12px;">
+          <div class="sd-card-title purple">Project Quick Facts</div>
+          <ul>
+            <li><strong>Duration:</strong> 4 months (1 June – 28 Sept 2026)</li>
+            <li><strong>Locations:</strong> 5 shopping malls in KL</li>
+            <li><strong>Target:</strong> Minimum 500 valid responses</li>
+            <li><strong>Method:</strong> Face-to-face questionnaire survey</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 3 ==================== -->
+<div class="slide-design">
+  <div class="slide-design-header" style="background:linear-gradient(135deg,#1b5e20,#43a047);">
+    <div class="sd-num">03</div>
+    <div class="sd-title-group">
+      <div class="sd-title">Project Objectives — SMART Approach</div>
+      <div class="sd-subtitle">Specific, Measurable, Achievable, Realistic, Time-bounded</div>
+    </div>
+
+  </div>
+  <div class="slide-design-body">
+    <div class="sd-three-col">
+      <div class="sd-card">
+        <div class="sd-card-title blue">Specific</div>
+        <p>Conduct customer acceptance survey using <strong>questionnaire instrument</strong> at selected major shopping malls in Kuala Lumpur</p>
+      </div>
+      <div class="sd-card green">
+        <div class="sd-card-title green">Measurable</div>
+        <p>Collect minimum <strong>500 valid survey responses</strong> across 5 locations with at least 100 per location</p>
+      </div>
+      <div class="sd-card orange">
+        <div class="sd-card-title orange">Achievable</div>
+        <p>Utilize existing <strong>research methodology</strong> and trained survey team with proper planning</p>
+      </div>
+    </div>
+    <div class="sd-three-col" style="margin-top:12px;">
+      <div class="sd-card purple">
+        <div class="sd-card-title purple">Realistic</div>
+        <p>Leverage <strong>established relationships</strong> with shopping mall management for access and permissions</p>
+      </div>
+      <div class="sd-card teal">
+        <div class="sd-card-title teal">Time-bounded</div>
+        <p>Complete from <strong>1 June 2026</strong> to <strong>28 September 2026</strong></p>
+      </div>
+      <div class="sd-card red">
+        <div class="sd-card-title red">Budget-bounded</div>
+        <p>Maximum budget of <strong>RM 15,000</strong> for the entire project execution</p>
+      </div>
+    </div>
+    <div class="sd-highlight">
+      <div class="sd-highlight-title">Main Objectives Summary</div>
+      <p>1) Conduct customer acceptance survey for XYZ Company's new product &nbsp;&nbsp; 2) Collect feedback from consumers at 5 strategic locations &nbsp;&nbsp; 3) Analyze consumer preferences and acceptance levels &nbsp;&nbsp; 4) Provide recommendations to management</p>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 4 ==================== -->
+<div class="slide-design">
+  <div class="slide-design-header" style="background:linear-gradient(135deg,#4a148c,#7b1fa2);">
+    <div class="sd-num">04</div>
+    <div class="sd-title-group">
+      <div class="sd-title">Project Scope Statement</div>
+      <div class="sd-subtitle">Scope Checklist — 6 Components</div>
+    </div>
+
+  </div>
+  <div class="slide-design-body">
+    <div class="sd-three-col">
+      <div class="sd-card">
+        <div class="sd-card-title blue">1. Project Objective</div>
+        <p>Conduct customer acceptance survey at 5 locations in KL within 4 months to gather consumer feedback on XYZ Company's new product</p>
+      </div>
+      <div class="sd-card green">
+        <div class="sd-card-title green">2. Deliverables</div>
+        <ul>
+          <li>Survey Questionnaire (Final)</li>
+          <li>Survey Data (500+ responses)</li>
+          <li>Data Analysis Report</li>
+          <li>Final Research Report</li>
+          <li>Management Presentation</li>
+        </ul>
+      </div>
+      <div class="sd-card orange">
+        <div class="sd-card-title orange">3. Milestones</div>
+        <ul>
+          <li>M1: Project Kickoff (8 Jun)</li>
+          <li>M3: Questionnaire Done (21 Jul)</li>
+          <li>M6: Survey Completed (17 Aug)</li>
+          <li>M8: Report Submitted (16 Sep)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="sd-three-col" style="margin-top:12px;">
+      <div class="sd-card purple">
+        <div class="sd-card-title purple">4. Technical Requirements</div>
+        <ul>
+          <li>Questionnaire with open & closed questions</li>
+          <li>Min. 100 responses per location</li>
+          <li>5 major shopping malls</li>
+          <li>Statistical analysis (SPSS/Excel)</li>
+        </ul>
+      </div>
+      <div class="sd-card red">
+        <div class="sd-card-title red">5. Limits & Exclusions</div>
+        <ul>
+          <li><strong>Limits:</strong> KL only, RM15K budget, 4 months</li>
+          <li><strong>Excludes:</strong> Product modification</li>
+          <li><strong>Excludes:</strong> Distribution analysis</li>
+          <li><strong>Excludes:</strong> Online survey component</li>
+        </ul>
+      </div>
+      <div class="sd-card teal">
+        <div class="sd-card-title teal">6. Acceptance Criteria</div>
+        <ul>
+          <li>Min. 500 valid questionnaires</li>
+          <li>All 5 locations covered</li>
+          <li>70% response rate from approached</li>
+          <li>Report approved by management</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 5 ==================== -->
+<div class="slide-design">
+  <div class="slide-design-header" style="background:linear-gradient(135deg,#bf360c,#e64a19);">
+    <div class="sd-num">05</div>
+    <div class="sd-title-group">
+      <div class="sd-title">Work Breakdown Structure (WBS)</div>
+      <div class="sd-subtitle">Decomposition of Project Work — 9 Phases, 55 Work Packages</div>
+    </div>
+
+  </div>
+  <div class="slide-design-body">
+    <div class="sd-two-col">
+      <div>
+        <div class="sd-card">
+          <div class="sd-card-title blue">WBS Overview</div>
+          <ul>
+            <li><strong>Method:</strong> Decomposition (PMBOK Guide)</li>
+            <li><strong>Root:</strong> (0) Customer Acceptance Survey</li>
+            <li><strong>Level 1:</strong> 9 major phases</li>
+            <li><strong>Level 2:</strong> 47 sub-deliverables</li>
+            <li><strong>Milestones:</strong> 9 key completion points</li>
+            <li><strong>Lowest level:</strong> Work Packages (with duration, resources, cost)</li>
+          </ul>
+        </div>
+        <div class="sd-highlight" style="margin-top:12px;">
+          <div class="sd-highlight-title">WBS Naming Convention</div>
+          <p>WBS elements use <strong>nouns</strong> (not verbs). Example: "Survey Questionnaire" not "Develop Questionnaire". Work packages represent the lowest level of detail in the structure.</p>
+        </div>
+      </div>
+      <div>
+        <div class="sd-card purple">
+          <div class="sd-card-title purple">9 Major Phases</div>
+          <ul>
+            <li><strong>1.0</strong> Project Initiation (4 tasks)</li>
+            <li><strong>2.0</strong> Project Planning (5 tasks)</li>
+            <li><strong>3.0</strong> Survey Design (7 tasks)</li>
+            <li><strong>4.0</strong> Location Preparation (6 tasks)</li>
+            <li><strong>5.0</strong> Team Preparation (5 tasks)</li>
+            <li><strong>6.0</strong> Field Survey Execution (8 tasks)</li>
+            <li><strong>7.0</strong> Data Analysis (6 tasks)</li>
+            <li><strong>8.0</strong> Report Writing (7 tasks)</li>
+            <li><strong>9.0</strong> Presentation & Closure (7 tasks)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 6 ==================== -->
+<div class="slide-design">
+  <div class="slide-design-header" style="background:linear-gradient(135deg,#006064,#00838f);">
+    <div class="sd-num">06</div>
+    <div class="sd-title-group">
+      <div class="sd-title">Gantt Chart Overview</div>
+      <div class="sd-subtitle">Project Schedule — 4 Months Duration</div>
+    </div>
+
+  </div>
+  <div class="slide-design-body">
+    <div class="sd-two-col">
+      <div>
+        <div class="sd-card">
+          <div class="sd-card-title blue">Gantt Chart Components</div>
+          <ul>
+            <li><strong>Summary Tasks:</strong> Bold bars representing 9 major phases</li>
+            <li><strong>Sub-tasks:</strong> Detailed bars for individual activities</li>
+            <li><strong>Milestones:</strong> Black diamond symbols (◆) — zero duration</li>
+            <li><strong>Logical Relationships:</strong> Arrows connecting dependent tasks</li>
+            <li><strong>Relationship Type:</strong> Finish-to-Start (FS) — most common</li>
+          </ul>
+        </div>
+        <div class="sd-card green" style="margin-top:12px;">
+          <div class="sd-card-title green">Key Features</div>
+          <ul>
+            <li>Activities run along a <strong>time scale</strong> (horizontal axis)</li>
+            <li>Tasks listed in the <strong>text area</strong> (left side)</li>
+            <li>Bars displayed in the <strong>bar area</strong> (right side)</li>
+            <li>Project spans <strong>1 June – 28 September 2026</strong></li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="sd-card orange">
+          <div class="sd-card-title orange">Schedule Structure</div>
+          <ul>
+            <li>9 Summary Tasks (phases)</li>
+            <li>47 individual activities</li>
+            <li>9 milestones (diamond symbols)</li>
+            <li>FS relationships linking tasks</li>
+            <li>Parallel activities where possible</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 7 ==================== -->
+<div class="slide-design">
+  <div class="slide-design-header" style="background:linear-gradient(135deg,#e65100,#f57c00);">
+    <div class="sd-num">07</div>
+    <div class="sd-title-group">
+      <div class="sd-title">Project Timeline</div>
+      <div class="sd-subtitle">Phase Durations & Schedule Breakdown</div>
+    </div>
+
+  </div>
+  <div class="slide-design-body">
+    <div class="sd-timeline">
+      <div class="sd-timeline-item">
+        <div class="sd-tl-dot" style="background:#1a237e;"></div>
+        <div class="sd-tl-label">Phase 1 – Initiation</div>
+        <div class="sd-tl-bar" style="width:60px; background:#1a237e;"></div>
+        <div class="sd-tl-desc">1 – 8 June (6 days)</div>
+      </div>
+      <div class="sd-timeline-item">
+        <div class="sd-tl-dot" style="background:#283593;"></div>
+        <div class="sd-tl-label">Phase 2 – Planning</div>
+        <div class="sd-tl-bar" style="width:90px; background:#283593;"></div>
+        <div class="sd-tl-desc">9 – 19 June (9 days)</div>
+      </div>
+      <div class="sd-timeline-item">
+        <div class="sd-tl-dot" style="background:#4527a0;"></div>
+        <div class="sd-tl-label">Phase 3 – Survey Design</div>
+        <div class="sd-tl-bar" style="width:180px; background:#4527a0;"></div>
+        <div class="sd-tl-desc">22 June – 21 July (22 days, parallel)</div>
+      </div>
+      <div class="sd-timeline-item">
+        <div class="sd-tl-dot" style="background:#6a1b9a;"></div>
+        <div class="sd-tl-label">Phase 4 – Location Prep</div>
+        <div class="sd-tl-bar" style="width:150px; background:#6a1b9a;"></div>
+        <div class="sd-tl-desc">22 June – 15 July (18 days, parallel)</div>
+      </div>
+      <div class="sd-timeline-item">
+        <div class="sd-tl-dot" style="background:#ad1457;"></div>
+        <div class="sd-tl-label">Phase 5 – Team Prep</div>
+        <div class="sd-tl-bar" style="width:80px; background:#ad1457;"></div>
+        <div class="sd-tl-desc">16 – 29 July (10 days)</div>
+      </div>
+      <div class="sd-timeline-item">
+        <div class="sd-tl-dot" style="background:#c62828;"></div>
+        <div class="sd-tl-label">Phase 6 – Field Survey</div>
+        <div class="sd-tl-bar" style="width:100px; background:linear-gradient(90deg,#c62828,#e53935);"></div>
+        <div class="sd-tl-desc">30 July – 17 August (13 days)</div>
+      </div>
+      <div class="sd-timeline-item">
+        <div class="sd-tl-dot" style="background:#e65100;"></div>
+        <div class="sd-tl-label">Phase 7 – Data Analysis</div>
+        <div class="sd-tl-bar" style="width:100px; background:#e65100;"></div>
+        <div class="sd-tl-desc">18 August – 2 September (12 days)</div>
+      </div>
+      <div class="sd-timeline-item">
+        <div class="sd-tl-dot" style="background:#f57c00;"></div>
+        <div class="sd-tl-label">Phase 8 – Report Writing</div>
+        <div class="sd-tl-bar" style="width:80px; background:#f57c00;"></div>
+        <div class="sd-tl-desc">3 – 16 September (10 days)</div>
+      </div>
+      <div class="sd-timeline-item">
+        <div class="sd-tl-dot" style="background:#ff8f00;"></div>
+        <div class="sd-tl-label">Phase 9 – Presentation</div>
+        <div class="sd-tl-bar" style="width:70px; background:#ff8f00;"></div>
+        <div class="sd-tl-desc">17 – 28 September (8 days)</div>
+      </div>
+    </div>
+    <div class="sd-highlight" style="margin-top:20px;">
+      <div class="sd-highlight-title">Note on Parallel Activities</div>
+      <p>Phases 3 & 4 run in parallel (Survey Design + Location Prep). Phases 8 & 9 also overlap (Report Writing + Presentation). This optimizes the total project duration to fit within the 4-month constraint.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 8 ==================== -->
+<div class="slide-design">
+  <div class="slide-design-header" style="background:linear-gradient(135deg,#880e4f,#c2185b);">
+    <div class="sd-num">08</div>
+    <div class="sd-title-group">
+      <div class="sd-title">Project Milestones</div>
+      <div class="sd-subtitle">9 Key Completion Points Throughout the Project</div>
+    </div>
+
+  </div>
+  <div class="slide-design-body">
+    <table class="sd-milestone-table">
+      <tr>
+        <th>Milestone</th>
+        <th>Description</th>
+        <th>Target Date</th>
+        <th>Significance</th>
+      </tr>
+      <tr>
+        <td><strong style="color:#1a237e;">M1</strong></td>
+        <td>Project Kickoff</td>
+        <td>8 June 2026</td>
+        <td>Project officially begins</td>
+      </tr>
+      <tr>
+        <td><strong style="color:#283593;">M2</strong></td>
+        <td>Planning Complete</td>
+        <td>19 June 2026</td>
+        <td>All plans approved</td>
+      </tr>
+      <tr>
+        <td><strong style="color:#4527a0;">M3</strong></td>
+        <td>Questionnaire Completed</td>
+        <td>21 July 2026</td>
+        <td>Survey instrument finalized</td>
+      </tr>
+      <tr>
+        <td><strong style="color:#6a1b9a;">M4</strong></td>
+        <td>Locations Secured</td>
+        <td>15 July 2026</td>
+        <td>All mall permissions obtained</td>
+      </tr>
+      <tr>
+        <td><strong style="color:#ad1457;">M5</strong></td>
+        <td>Team Ready</td>
+        <td>29 July 2026</td>
+        <td>Team trained and equipped</td>
+      </tr>
+      <tr>
+        <td><strong style="color:#c62828;">M6</strong></td>
+        <td>Survey Completed</td>
+        <td>17 August 2026</td>
+        <td>All 500+ responses collected</td>
+      </tr>
+      <tr>
+        <td><strong style="color:#e65100;">M7</strong></td>
+        <td>Analysis Completed</td>
+        <td>2 September 2026</td>
+        <td>Data fully analyzed</td>
+      </tr>
+      <tr>
+        <td><strong style="color:#f57c00;">M8</strong></td>
+        <td>Report Submitted</td>
+        <td>16 September 2026</td>
+        <td>Final report delivered</td>
+      </tr>
+      <tr>
+        <td><strong style="color:#ff8f00;">M9</strong></td>
+        <td>Project Closure</td>
+        <td>28 September 2026</td>
+        <td>Project formally closed</td>
+      </tr>
+    </table>
+    <div class="sd-highlight" style="margin-top:16px;">
+      <div class="sd-highlight-title">Milestones in ProjectLibre</div>
+      <p>Milestones appear as <strong>black diamond symbols (◆)</strong> in the Gantt chart with <strong>Duration = 0 days</strong>. They serve as important control points to track project progress and ensure the team stays on schedule.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 9 ==================== -->
+<div class="slide-design">
+  <div class="slide-design-header" style="background:linear-gradient(135deg,#004d40,#00796b);">
+    <div class="sd-num">09</div>
+    <div class="sd-title-group">
+      <div class="sd-title">Resource Allocation</div>
+      <div class="sd-subtitle">Human Resources & Materials for the Project</div>
+    </div>
+
+  </div>
+  <div class="slide-design-body">
+    <div class="sd-two-col">
+      <div>
+        <div class="sd-card">
+          <div class="sd-card-title blue">Work Resources (Human)</div>
+          <div class="sd-resource-grid" style="margin-top:8px;">
+            <div class="sd-resource-item">
+              <div class="sd-resource-dot" style="background:#1a237e;"></div>
+              <div>
+                <div style="font-size:13px;font-weight:600;">Project Manager</div>
+                <div style="font-size:11px;color:#888;">Overall coordination</div>
+              </div>
+            </div>
+            <div class="sd-resource-item">
+              <div class="sd-resource-dot" style="background:#0d47a1;"></div>
+              <div>
+                <div style="font-size:13px;font-weight:600;">Survey Coordinator</div>
+                <div style="font-size:11px;color:#888;">Survey operations</div>
+              </div>
+            </div>
+            <div class="sd-resource-item">
+              <div class="sd-resource-dot" style="background:#00695c;"></div>
+              <div>
+                <div style="font-size:13px;font-weight:600;">Team Member 1</div>
+                <div style="font-size:11px;color:#888;">Data collection</div>
+              </div>
+            </div>
+            <div class="sd-resource-item">
+              <div class="sd-resource-dot" style="background:#00695c;"></div>
+              <div>
+                <div style="font-size:13px;font-weight:600;">Team Member 2</div>
+                <div style="font-size:11px;color:#888;">Data collection</div>
+              </div>
+            </div>
+            <div class="sd-resource-item">
+              <div class="sd-resource-dot" style="background:#00695c;"></div>
+              <div>
+                <div style="font-size:13px;font-weight:600;">Team Member 3</div>
+                <div style="font-size:11px;color:#888;">Data collection</div>
+              </div>
+            </div>
+            <div class="sd-resource-item">
+              <div class="sd-resource-dot" style="background:#e65100;"></div>
+              <div>
+                <div style="font-size:13px;font-weight:600;">Data Analyst</div>
+                <div style="font-size:11px;color:#888;">Statistical analysis</div>
+              </div>
+            </div>
+            <div class="sd-resource-item">
+              <div class="sd-resource-dot" style="background:#c62828;"></div>
+              <div>
+                <div style="font-size:13px;font-weight:600;">Report Writer</div>
+                <div style="font-size:11px;color:#888;">Documentation</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="sd-card green">
+          <div class="sd-card-title green">Material Resources</div>
+          <div class="sd-resource-grid" style="margin-top:8px;">
+            <div class="sd-resource-item">
+              <div class="sd-resource-dot" style="background:#ff6f00;"></div>
+              <div>
+                <div style="font-size:13px;font-weight:600;">Questionnaire Forms</div>
+                <div style="font-size:11px;color:#888;">500+ copies</div>
+              </div>
+            </div>
+            <div class="sd-resource-item">
+              <div class="sd-resource-dot" style="background:#ff6f00;"></div>
+              <div>
+                <div style="font-size:13px;font-weight:600;">Pens</div>
+                <div style="font-size:11px;color:#888;">For respondents</div>
+              </div>
+            </div>
+            <div class="sd-resource-item">
+              <div class="sd-resource-dot" style="background:#ff6f00;"></div>
+              <div>
+                <div style="font-size:13px;font-weight:600;">Clipboards</div>
+                <div style="font-size:11px;color:#888;">For field work</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sd-card purple" style="margin-top:12px;">
+          <div class="sd-card-title purple">Resource Assignment</div>
+          <ul>
+            <li>Resources assigned to tasks with <strong>% utilization</strong> (1%-100%)</li>
+            <li>Survey Coordinator + 3 Team Members for field work</li>
+            <li>Data Analyst for analysis phase</li>
+            <li>Report Writer for documentation phase</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 10 ==================== -->
+<div class="slide-design">
+  <div class="slide-design-header" style="background:linear-gradient(135deg,#1a237e,#283593);">
+    <div class="sd-num">10</div>
+    <div class="sd-title-group">
+      <div class="sd-title">Network Diagram & Dependencies</div>
+      <div class="sd-subtitle">Precedence Diagramming Method (PDM) — Activity-on-Node (AON)</div>
+    </div>
+  </div>
+  <div class="slide-design-body">
+    <div class="sd-two-col">
+      <div>
+        <div class="sd-card">
+          <div class="sd-card-title blue">Network Diagram Method</div>
+          <ul>
+            <li><strong>Method:</strong> Precedence Diagramming Method (PDM)</li>
+            <li><strong>Approach:</strong> Activity-on-Node (AON)</li>
+            <li><strong>Boxes:</strong> Represent activities (nodes)</li>
+            <li><strong>Arrows:</strong> Represent dependencies between activities</li>
+          </ul>
+        </div>
+        <div class="sd-card green" style="margin-top:12px;">
+          <div class="sd-card-title green">Logical Relationships</div>
+          <ul>
+            <li><strong>Finish-to-Start (FS):</strong> Most common — successor starts after predecessor finishes</li>
+            <li><strong>Start-to-Start (SS):</strong> Successor starts when predecessor starts (parallel work)</li>
+            <li><strong>Finish-to-Finish (FF):</strong> Both finish together</li>
+            <li><strong>Start-to-Finish (SF):</strong> Rare — successor finishes when predecessor starts</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="sd-card orange">
+          <div class="sd-card-title orange">Lead & Lag</div>
+          <ul>
+            <li><strong>Lead (negative):</strong> Successor starts BEFORE predecessor finishes (e.g., FS-3d)</li>
+            <li><strong>Lag (positive):</strong> Successor starts AFTER predecessor finishes (e.g., FS+5d)</li>
+            <li><strong>Example:</strong> Task 20SS+2d — Task 21 starts 2 days after Task 20 starts</li>
+          </ul>
+        </div>
+        <div class="sd-card purple" style="margin-top:12px;">
+          <div class="sd-card-title purple">Activity Types</div>
+          <ul>
+            <li><strong>Burst Activity:</strong> One activity with multiple successors</li>
+            <li><strong>Merge Activity:</strong> One activity with multiple predecessors</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 11 ==================== -->
+<div class="slide-design">
+  <div class="slide-design-header" style="background:linear-gradient(135deg,#b71c1c,#d32f2f);">
+    <div class="sd-num">11</div>
+    <div class="sd-title-group">
+      <div class="sd-title">Quality & Risk Management</div>
+      <div class="sd-subtitle">Ensuring Quality Outcomes and Managing Project Risks</div>
+    </div>
+  </div>
+  <div class="slide-design-body">
+    <div class="sd-two-col">
+      <div>
+        <div class="sd-card">
+          <div class="sd-card-title blue">Quality Management</div>
+          <ul>
+            <li><strong>Quality Assurance (QA):</strong> Methods, processes, activities that produce the outcome</li>
+            <li><strong>Quality Control (QC):</strong> Monitor performance and do something about results</li>
+            <li><strong>Pilot test:</strong> Questionnaire validated before full deployment</li>
+            <li><strong>Data check:</strong> Quality check on collected data (task 6.6)</li>
+          </ul>
+        </div>
+        <div class="sd-highlight" style="margin-top:12px;">
+          <div class="sd-highlight-title">PMI Definition of Quality</div>
+          <p>"The degree to which a set of inherent characteristics fulfill requirements." Quality brings VALUE to customers.</p>
+        </div>
+      </div>
+      <div>
+        <div class="sd-card red">
+          <div class="sd-card-title red">Risk Management</div>
+          <div class="sd-risk-row">
+            <div class="sd-risk-tag" style="background:#fff3e0;color:#e65100;">MITIGATE</div>
+            <div><strong>Low response rates</strong> — Offer incentives, approach more respondents</div>
+          </div>
+          <div class="sd-risk-row">
+            <div class="sd-risk-tag" style="background:#e8f5e9;color:#2e7d32;">AVOID</div>
+            <div><strong>Mall permission delays</strong> — Contact management early, follow up regularly</div>
+          </div>
+          <div class="sd-risk-row">
+            <div class="sd-risk-tag" style="background:#fce4ec;color:#c62828;">ACCEPT</div>
+            <div><strong>Weather delays</strong> — Accept and reschedule critical activities</div>
+          </div>
+          <div class="sd-risk-row">
+            <div class="sd-risk-tag" style="background:#e3f2fd;color:#1565c0;">MITIGATE</div>
+            <div><strong>Budget overrun</strong> — Contingency budget, reduce material quantity</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 12 ==================== -->
+<div class="slide-design">
+  <div class="slide-design-header" style="background:linear-gradient(135deg,#1b5e20,#2e7d32);">
+    <div class="sd-num">12</div>
+    <div class="sd-title-group">
+      <div class="sd-title">Conclusion & Q&A</div>
+      <div class="sd-subtitle">Project Summary, Lessons Learned & Recommendations</div>
+    </div>
+  </div>
+  <div class="slide-design-body">
+    <div class="sd-two-col">
+      <div>
+        <div class="sd-card">
+          <div class="sd-card-title blue">Project Summary</div>
+          <ul>
+            <li><strong>9 Phases</strong> of project work identified</li>
+            <li><strong>55 Work Packages</strong> decomposed from WBS</li>
+            <li><strong>9 Milestones</strong> to track progress</li>
+            <li><strong>4-month duration</strong> (1 June – 28 Sept 2026)</li>
+            <li><strong>5 survey locations</strong> across Kuala Lumpur</li>
+            <li><strong>7 resources</strong> allocated (human + material)</li>
+          </ul>
+        </div>
+        <div class="sd-card green" style="margin-top:12px;">
+          <div class="sd-card-title green">Key Achievements</div>
+          <ul>
+            <li>Comprehensive project plan following PMBOK methodology</li>
+            <li>Detailed WBS with proper decomposition</li>
+            <li>Realistic Gantt chart using ProjectLibre</li>
+            <li>Resource allocation and risk management planned</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="sd-card orange">
+          <div class="sd-card-title orange">Lessons Learned</div>
+          <ul>
+            <li>Proper planning is essential for project success</li>
+            <li>Clear scope definition prevents scope creep</li>
+            <li>Regular monitoring keeps the project on track</li>
+            <li>Effective stakeholder communication is crucial</li>
+          </ul>
+        </div>
+        <div class="sd-card purple" style="margin-top:12px;">
+          <div class="sd-card-title purple">Recommendations</div>
+          <ul>
+            <li>Follow the project schedule strictly</li>
+            <li>Ensure quality control at each phase</li>
+            <li>Maintain regular communication with management</li>
+            <li>Document all project activities for future reference</li>
+          </ul>
+        </div>
+        <div class="sd-highlight" style="margin-top:12px;">
+          <div class="sd-highlight-title">Thank You!</div>
+          <p>Questions & Answers — Feel free to ask any questions about the project.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /slide-design-section -->
+
+<div class="page-footer">
+  LMRR 1522 Perancangan Projek dan ProjectLibre — IMEN, Universiti Kebangsaan Malaysia
+</div>
+
+</div><!-- /container -->
+</body>
+</html>

@@ -74,7 +74,7 @@ The sixth component is the Acceptance Criteria. For the project to be considered
 
 "The Work Breakdown Structure, or WBS, is created using the decomposition method as outlined in the PMBOK Guide. Decomposition means breaking down the project into smaller, more manageable components until we reach the lowest level of detail, which we call Work Packages.
 
-Our WBS is structured as follows. The root element is the Customer Acceptance Survey project itself. At Level 1, we have 9 major phases. At Level 2, we have 47 sub-deliverables. And at the lowest level, we have 55 Work Packages, each with defined duration, resource assignments, and cost.
+Our WBS is structured as follows. The root element is the Customer Acceptance Survey project itself. At Level 1, we have 9 major phases. At Level 2, we have 46 sub-deliverables. And at the lowest level, we have 46 Work Packages, each with defined duration, resource assignments, and cost.
 
 The 9 major phases are: Phase 1, Project Initiation with 4 tasks; Phase 2, Project Planning with 5 tasks; Phase 3, Survey Design with 7 tasks; Phase 4, Location Preparation with 6 tasks; Phase 5, Team Preparation with 5 tasks; Phase 6, Field Survey Execution with 8 tasks; Phase 7, Data Analysis with 6 tasks; Phase 8, Report Writing with 7 tasks; and Phase 9, Presentation and Closure with 7 tasks.
 
@@ -202,7 +202,7 @@ Fourth, budget overrun — our response strategy is Mitigate. We will maintain a
 
 **Script:**
 
-"In conclusion, this project demonstrates the application of project management principles from the PMBOK Guide to a real-world market research scenario. We have successfully developed a comprehensive project plan that includes a detailed scope statement using the 6-component checklist, a Work Breakdown Structure with 9 phases and 55 work packages created through the decomposition method, and a realistic Gantt chart using ProjectLibre with proper task dependencies, resource allocation, and milestone tracking.
+"In conclusion, this project demonstrates the application of project management principles from the PMBOK Guide to a real-world market research scenario. We have successfully developed a comprehensive project plan that includes a detailed scope statement using the 6-component checklist, a Work Breakdown Structure with 9 phases and 46 work packages created through the decomposition method, and a realistic Gantt chart using ProjectLibre with proper task dependencies, resource allocation, and milestone tracking.
 
 The project spans 4 months from 1 June to 28 September 2026, covering 5 survey locations across Kuala Lumpur, with 7 resources allocated to ensure efficient execution.
 

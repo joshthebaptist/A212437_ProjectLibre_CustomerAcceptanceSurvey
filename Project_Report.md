@@ -228,7 +228,7 @@ The Work Breakdown Structure (WBS) was developed following the decomposition met
 | 7.0 Data Analysis | 6 | 12 days |
 | 8.0 Report Writing | 7 | 10 days |
 | 9.0 Presentation and Closure | 7 | 8 days |
-| **Total** | **55** | **85 days** |
+| **Total** | **46** | **85 days** |
 
 ---
 
@@ -239,7 +239,7 @@ The Work Breakdown Structure (WBS) was developed following the decomposition met
 The project schedule was developed using ProjectLibre, an open-source project management tool. The Gantt chart displays the following key elements:
 
 1. **Summary Tasks:** Major project phases (9 phases)
-2. **Sub-tasks:** Individual activities within each phase (55 activities)
+2. **Sub-tasks:** Individual activities within each phase (46 activities)
 3. **Milestones:** Key completion points (9 milestones)
 4. **Logical Relationships:** Finish-to-Start (FS) relationships between tasks
 5. **Task Durations:** Realistic time estimates for each activity
@@ -392,7 +392,7 @@ This project involved the planning and execution of a customer acceptance survey
 ### 6.2 Key Achievements
 
 1. Successfully developed a comprehensive project plan following PMBOK methodology
-2. Created a detailed Work Breakdown Structure with 55 work packages across 9 phases
+2. Created a detailed Work Breakdown Structure with 46 work packages across 9 phases
 3. Developed a realistic project schedule using ProjectLibre with Gantt chart
 4. Identified and managed 9 project milestones
 5. Allocated appropriate resources (7 work resources, 3 material resources) for each project phase
